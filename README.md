@@ -72,3 +72,24 @@ https://hub.docker.com/r/sjenning/kube-nginx-letsencrypt/
             backend:
               serviceName: letsencrypt
               servicePort: 80
+
+## Letsencrypt service account ##
+
+    apiVersion: v1
+    kind: ServiceAccount
+    metadata:
+      name: letsencrypt
+      namespace: default
+    ---
+    apiVersion: rbac.authorization.k8s.io/v1beta1
+    kind: ClusterRoleBinding
+    metadata:
+      name: letsencrypt
+    roleRef:
+      apiGroup: rbac.authorization.k8s.io
+      kind: ClusterRole
+      name: cluster-admin
+    subjects:
+    - kind: ServiceAccount
+      name: letsencrypt
+      namespace: default
