@@ -2,7 +2,10 @@
 
 Obtain and install Let's Encrypt certificates for Kubernetes Ingresses
 
-https://hub.docker.com/r/sjenning/kube-nginx-letsencrypt/
+Reference urls:
+
+     https://runnable.com/blog/how-to-use-lets-encrypt-on-kubernetes
+     https://hub.docker.com/r/sjenning/kube-nginx-letsencrypt/
 
 
 
