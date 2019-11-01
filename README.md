@@ -5,28 +5,7 @@ Obtain and install Let's Encrypt certificates for Kubernetes Ingresses
 https://hub.docker.com/r/sjenning/kube-nginx-letsencrypt/
 
 
-## Ingress ##
-    apiVersion: extensions/v1beta1
-    kind: Ingress
-    metadata:
-      name: nginx
-    spec:
-      tls:
-      - hosts:
-        - www.example.com
-        secretName: nginx
-      rules:
-      - host: www.example.com
-        http:
-          paths:
-          - path: /
-            backend:
-              serviceName: wordpress
-              servicePort: 80
-          - path: /.well-known
-            backend:
-              serviceName: letsencrypt
-              servicePort: 80
+
 ## Nginx Deployment
 
     apiVersion: apps/v1
@@ -64,3 +43,32 @@ https://hub.docker.com/r/sjenning/kube-nginx-letsencrypt/
       - protocol: "TCP"
         port: 80
 
+## Nginx secret 
+
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: nginx
+    type: Opaque
+## Ingress ##
+    apiVersion: extensions/v1beta1
+    kind: Ingress
+    metadata:
+      name: nginx
+    spec:
+      tls:
+      - hosts:
+        - www.example.com
+        secretName: nginx
+      rules:
+      - host: www.example.com
+        http:
+          paths:
+          - path: /
+            backend:
+              serviceName: wordpress
+              servicePort: 80
+          - path: /.well-known
+            backend:
+              serviceName: letsencrypt
+              servicePort: 80
