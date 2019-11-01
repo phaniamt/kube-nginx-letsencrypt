@@ -93,3 +93,36 @@ https://hub.docker.com/r/sjenning/kube-nginx-letsencrypt/
     - kind: ServiceAccount
       name: letsencrypt
       namespace: default
+## Letsencrypt Job ##
+
+    apiVersion: batch/v1
+    kind: Job
+    metadata:
+      name: letsencrypt
+      labels:
+        app: letsencrypt
+    spec:
+      template:
+        metadata:
+          name: letsencrypt
+          labels:
+            app: letsencrypt
+        spec:
+          serviceAccountName: letsencrypt
+          containers:
+          - image: phanikumary1995/letsencrypt
+            name: letsencrypt
+            imagePullPolicy: Always
+            ports:
+            - name: letsencrypt
+              containerPort: 80
+            env:
+            - name: DOMAINS
+              value: example.com,www.example.com
+            - name: EMAIL
+              value: admin@example.com
+            - name: SECRET
+              value: nginx
+            - name: DEPLOYMENT
+              value: nginx
+          restartPolicy: Never
