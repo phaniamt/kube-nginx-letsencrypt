@@ -27,3 +27,40 @@ https://hub.docker.com/r/sjenning/kube-nginx-letsencrypt/
             backend:
               serviceName: letsencrypt
               servicePort: 80
+## Nginx Deployment
+
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      labels:
+        app: nginx
+      name: nginx
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app: nginx
+      template:
+        metadata:
+          labels:
+            app: nginx
+        spec:
+          containers:
+          - name: nginx
+            image: nginx
+            ports:
+            - containerPort: 80
+   
+ ## Nginx service  ##
+ 
+    apiVersion: v1
+    kind: Service
+    metadata:
+      name: nginx
+    spec:
+      selector:
+        app: nginx
+      ports:
+      - protocol: "TCP"
+        port: 80
+
