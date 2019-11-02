@@ -96,6 +96,19 @@ Reference urls:
     - kind: ServiceAccount
       name: letsencrypt
       namespace: default
+## Letsencrypt service ##
+
+     apiVersion: v1
+     kind: Service
+     metadata:
+       name: letsencrypt
+     spec:
+       selector:
+         app: letsencrypt
+       ports:
+       - protocol: "TCP"
+         port: 80
+
 ## Letsencrypt Job ##
 
     apiVersion: batch/v1
